@@ -1,15 +1,14 @@
 import express from "express";
 import cors from "cors";
-import userRouter from "./routes/user.js";
-import articleRouter from "./routes/article.js";
+import routes from "./routes/index.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", userRouter);
-app.use("/article", articleRouter);
+app.use("/", routes.userRouter);
+app.use("/article", routes.articleRouter);
 
 const PORT = 8000;
 app.listen(PORT, (err) => {
