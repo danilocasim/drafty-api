@@ -7,8 +7,8 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", routes.userRouter);
-app.use("/article", routes.articleRouter);
+app.use("/", routes.user);
+app.use("/article", routes.article);
 
 const PORT = 8000;
 app.listen(PORT, (err) => {

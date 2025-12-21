@@ -1,7 +1,7 @@
 class Article {
   async addArticle(req, res) {
     console.log(req.user);
-    res.json({ message: "Post Created" });
+    return res.json({ message: "Post Created" });
   }
 }
 

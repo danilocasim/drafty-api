@@ -1,4 +1,4 @@
-import userRouter from "./user.js";
-import articleRouter from "./article.js";
+import user from "./user.js";
+import article from "./article.js";
 
-export default { userRouter, articleRouter };
+export default { user, article };
