@@ -15,7 +15,7 @@ class User {
     const { SECRET_KEY } = process.env;
 
     if (bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "1h" });
+      const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "1hr" });
       return res.status(200).json({
         message: "Auth Passed",
         token,
