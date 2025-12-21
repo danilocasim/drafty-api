@@ -5,7 +5,7 @@ export default function authenticate(req, res, next) {
   const { SECRET_KEY } = process.env;
   jwt.verify(req.token, SECRET_KEY, (err, authData) => {
     if (err) {
-      res.status(403);
+      return res.status(403).json({ message: "Forbidden: Token Expired" });
     } else {
       req.user = authData;
       next();

@@ -6,6 +6,6 @@ export default function verifyToken(req, res, next) {
     req.token = token;
     next();
   } else {
-    res.status(403).json({ message: "Forbidden" });
+    return res.status(403).json({ message: "Forbidden: No existing token" });
   }
 }
