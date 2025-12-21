@@ -1,7 +1,9 @@
 class Article {
   async addArticle(req, res) {
-    console.log(req.user);
-    return res.json({ message: "Post Created" });
+    return res.json({
+      message: "Post Created",
+      user: req.authData.user.username,
+    });
   }
 }
 

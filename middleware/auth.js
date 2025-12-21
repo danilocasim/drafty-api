@@ -7,7 +7,7 @@ export default function authenticate(req, res, next) {
     if (err) {
       return res.status(403).json({ message: "Forbidden: Token Expired" });
     } else {
-      req.user = authData;
+      req.authData = authData;
       next();
     }
   });
