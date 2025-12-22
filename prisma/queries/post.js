@@ -1,6 +1,6 @@
 import { prisma } from "../lib/prisma.js";
 
-class Article {
+class Post {
   async addPost(title, content, userId) {
     return await prisma.post.create({
       data: {
@@ -41,4 +41,4 @@ class Article {
   }
 }
 
-export default new Article();
+export default new Post();

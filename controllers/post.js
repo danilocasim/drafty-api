@@ -1,6 +1,6 @@
-import db from "../prisma/queries/article.js";
+import db from "../prisma/queries/post.js";
 
-class Article {
+class Post {
   async addPost(req, res) {
     const { user } = req.authData;
     const { title, content } = req.body;
@@ -17,17 +17,17 @@ class Article {
   async editPost(req, res) {
     const { user } = req.authData;
     const { title, content } = req.body;
-    const { articleId } = req.params;
-    const post = await db.editPost(title, content, articleId, user.id);
+    const { postId } = req.params;
+    const post = await db.editPost(title, content, postId, user.id);
     return res.json(post);
   }
 
   async deletePost(req, res) {
     const { user } = req.authData;
-    const { articleId } = req.params;
-    const post = await db.deletePost(articleId, user.id);
+    const { postId } = req.params;
+    const post = await db.deletePost(postId, user.id);
     return res.json(post);
   }
 }
 
-export default new Article();
+export default new Post();
