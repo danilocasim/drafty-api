@@ -9,8 +9,7 @@ class Post {
   }
 
   async getAllPost(req, res) {
-    const { user } = req.authData;
-    const allPost = await db.getAllPost(user.id);
+    const allPost = await db.getAllPost();
     return res.json(allPost);
   }
 
