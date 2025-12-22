@@ -1,3 +1,4 @@
+import { copyFileSync } from "fs";
 import { prisma } from "../lib/prisma.js";
 
 class Post {
@@ -32,6 +33,25 @@ class Post {
       where: {
         userId: userId,
         id: Number(postId),
+      },
+    });
+  }
+
+  async togglePublishPost(postId, userId) {
+    const post = await prisma.post.findFirst({
+      where: {
+        id: Number(postId),
+        userId: Number(userId),
+      },
+    });
+
+    return await prisma.post.update({
+      where: {
+        id: Number(postId),
+        userId: Number(userId),
+      },
+      data: {
+        isPublish: !post.isPublish,
       },
     });
   }

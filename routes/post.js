@@ -16,6 +16,13 @@ postRouter.delete(
   postController.deletePost
 );
 
+postRouter.put(
+  "/:postId/publish",
+  verifyToken,
+  authenticate,
+  postController.togglePublishPost
+);
+
 postRouter.post(
   "/:postId/comment",
   verifyToken,

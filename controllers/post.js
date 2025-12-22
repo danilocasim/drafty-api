@@ -28,6 +28,14 @@ class Post {
     return res.json(post);
   }
 
+  async togglePublishPost(req, res) {
+    const { user } = req.authData;
+    const { postId } = req.params;
+    const post = await db.togglePublishPost(postId, user.id);
+
+    return res.json(post);
+  }
+
   async addComment(req, res) {
     const { user } = req.authData;
     const { postId } = req.params;
