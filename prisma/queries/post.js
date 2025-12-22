@@ -10,7 +10,7 @@ class Post {
       },
     });
   }
-  async getAllPost(userId) {
+  async getAllPost() {
     return await prisma.post.findMany();
   }
 
@@ -32,6 +32,47 @@ class Post {
       where: {
         userId: userId,
         id: Number(postId),
+      },
+    });
+  }
+
+  async addComment(content, postId, userId) {
+    return await prisma.comment.create({
+      data: {
+        content: content,
+        userId: userId,
+        postId: Number(postId),
+      },
+    });
+  }
+
+  async getAllComment(postId) {
+    return await prisma.comment.findMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+  }
+
+  async editComment(content, postId, commentId, userId) {
+    return await prisma.comment.update({
+      where: {
+        id: Number(commentId),
+        userId: Number(userId),
+        postId: Number(postId),
+      },
+      data: {
+        content: content,
+      },
+    });
+  }
+
+  async deleteComment(commentId, postId, userId) {
+    return await prisma.comment.delete({
+      where: {
+        postId: Number(postId),
+        userId: Number(userId),
+        id: Number(commentId),
       },
     });
   }

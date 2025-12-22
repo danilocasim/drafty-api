@@ -16,4 +16,32 @@ postRouter.delete(
   postController.deletePost
 );
 
+postRouter.post(
+  "/:postId/comment",
+  verifyToken,
+  authenticate,
+  postController.addComment
+);
+
+postRouter.get(
+  "/:postId/comment",
+  verifyToken,
+  authenticate,
+  postController.getPostComments
+);
+
+postRouter.put(
+  "/:postId/comment/:commentId",
+  verifyToken,
+  authenticate,
+  postController.editComment
+);
+
+postRouter.delete(
+  "/:postId/comment/:commentId",
+  verifyToken,
+  authenticate,
+  postController.deleteComment
+);
+
 export default postRouter;

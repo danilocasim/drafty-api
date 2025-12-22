@@ -27,6 +27,43 @@ class Post {
     const post = await db.deletePost(postId, user.id);
     return res.json(post);
   }
+
+  async addComment(req, res) {
+    const { user } = req.authData;
+    const { postId } = req.params;
+    const { content } = req.body;
+    const comment = await db.addComment(content, postId, user.id);
+    return res.json(comment);
+  }
+
+  async getPostComments(req, res) {
+    const { postId } = req.params;
+    const allComments = await db.getAllComment(postId);
+    return res.json(allComments);
+  }
+
+  async editComment(req, res) {
+    const { user } = req.authData;
+
+    const { commentId, postId } = req.params;
+    const { content } = req.body;
+    const editedComment = await db.editComment(
+      content,
+      postId,
+      commentId,
+      user.id
+    );
+
+    return res.json(editedComment);
+  }
+
+  async deleteComment(req, res) {
+    const { user } = req.authData;
+    const { commentId, postId } = req.params;
+    const deletedComment = await db.deleteComment(commentId, postId, user.id);
+
+    return res.json(deletedComment);
+  }
 }
 
 export default new Post();
