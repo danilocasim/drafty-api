@@ -5,11 +5,20 @@ import verifyToken from "../middleware/verifyToken.js";
 
 const articleRouter = Router();
 
-articleRouter.post(
-  "/",
+articleRouter.post("/", verifyToken, authenticate, articleController.addPost);
+articleRouter.get("/", verifyToken, authenticate, articleController.getAllPost);
+articleRouter.put(
+  "/:articleId",
   verifyToken,
   authenticate,
-  articleController.addArticle
+  articleController.editPost
+);
+
+articleRouter.delete(
+  "/:articleId",
+  verifyToken,
+  authenticate,
+  articleController.deletePost
 );
 
 export default articleRouter;
