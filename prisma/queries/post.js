@@ -1,4 +1,3 @@
-import { copyFileSync } from "fs";
 import { prisma } from "../lib/prisma.js";
 
 class Post {
@@ -92,6 +91,22 @@ class Post {
       where: {
         postId: Number(postId),
         userId: Number(userId),
+        id: Number(commentId),
+      },
+    });
+  }
+
+  async getPostById(postId) {
+    return await prisma.post.findUnique({
+      where: {
+        id: Number(postId),
+      },
+    });
+  }
+
+  async getCommentById(commentId) {
+    return await prisma.comment.findUnique({
+      where: {
         id: Number(commentId),
       },
     });
