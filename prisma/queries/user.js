@@ -22,6 +22,14 @@ class User {
       },
     });
   }
+
+  async getUserByUsername(username) {
+    return await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+  }
 }
 
 export default new User();

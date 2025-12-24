@@ -23,7 +23,7 @@ class User {
     }
     return res
       .status(401)
-      .json({ error: { code: 401, message: "Auth Failed" } });
+      .json({ error: { code: 401, message: "Wrong Credentials" } });
   }
 }
 
