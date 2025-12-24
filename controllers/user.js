@@ -6,7 +6,7 @@ import "dotenv/config";
 class User {
   async addUser(req, res) {
     const user = await db.addUser(req.body);
-    res.json(user);
+    res.json({ data: user });
   }
 
   async checkUser(req, res) {
@@ -21,7 +21,9 @@ class User {
         token,
       });
     }
-    return res.status(401).json({ message: "Auth Failed" });
+    return res
+      .status(401)
+      .json({ error: { code: 401, message: "Auth Failed" } });
   }
 }
 
