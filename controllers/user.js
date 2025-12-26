@@ -14,7 +14,12 @@ class User {
     const user = await db.checkUser(email);
     const { SECRET_KEY } = process.env;
 
-    if (bcrypt.compare(password, user.password)) {
+    if (!user) {
+      return res.status(403).json({
+        message: "User does not exist",
+      });
+    }
+    if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "1hr" });
       return res.status(200).json({
         message: "Auth Passed",
