@@ -20,8 +20,8 @@ async function comment(req, res, next) {
   const { commentId } = req.params;
 
   const comment = await db.getCommentById(commentId);
-
-  if (comment.userId === user.id) {
+  const post = await db.getPostById(comment.postId);
+  if (comment.userId === user.id || post.userId === user.id) {
     next();
   } else {
     return res.json({
