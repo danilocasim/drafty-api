@@ -12,6 +12,11 @@ class Post {
     const allPost = await db.getAllPost();
     return res.json({ data: allPost });
   }
+  async getMyAllPost(req, res) {
+    const { user } = req.authData;
+    const myAllPost = await db.getMyAllPost(user.id);
+    return res.json({ data: myAllPost });
+  }
 
   async editPost(req, res) {
     const { user } = req.authData;

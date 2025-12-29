@@ -13,6 +13,9 @@ class Post {
   async getAllPost() {
     return await prisma.post.findMany();
   }
+  async getMyAllPost(userId) {
+    return await prisma.post.findMany({ where: { userId: userId } });
+  }
 
   async editPost(title, content, postId, userId) {
     return await prisma.post.update({
