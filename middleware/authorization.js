@@ -10,7 +10,10 @@ async function post(req, res, next) {
     next();
   } else {
     return res.json({
-      error: { code: "403", message: "You are not authorize to this resource" },
+      error: {
+        code: "403",
+        message: "You are not authorize to this resource",
+      },
     });
   }
 }

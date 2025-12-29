@@ -24,6 +24,7 @@ class User {
       return res.status(200).json({
         message: "Auth Passed",
         token,
+        user,
       });
     }
     return res
