@@ -8,7 +8,21 @@ const postRouter = Router();
 
 postRouter.post("/", verifyToken, authenticate, postController.addPost);
 postRouter.get("/", postController.getAllPost);
-postRouter.get("/mine", verifyToken, authenticate, postController.getMyAllPost);
+
+postRouter.get(
+  "/public",
+  verifyToken,
+  authenticate,
+  postController.getMyAllPublicPost
+);
+postRouter.get(
+  "/private",
+  verifyToken,
+  authenticate,
+  postController.getMyAllPrivatePost
+);
+
+postRouter.get("/:postId", verifyToken, authenticate, postController.getMyPost);
 
 postRouter.put(
   "/:postId",

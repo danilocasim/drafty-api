@@ -3,8 +3,8 @@ import db from "../prisma/queries/post.js";
 class Post {
   async addPost(req, res) {
     const { user } = req.authData;
-    const { title, content } = req.body;
-    const newPost = await db.addPost(title, content, user.id);
+    const { title, content, isPublish } = req.body;
+    const newPost = await db.addPost(title, content, isPublish, user.id);
     return res.json({ data: newPost });
   }
 
@@ -16,6 +16,25 @@ class Post {
     const { user } = req.authData;
     const myAllPost = await db.getMyAllPost(user.id);
     return res.json({ data: myAllPost });
+  }
+
+  async getMyAllPublicPost(req, res) {
+    const { user } = req.authData;
+    const myAllPublicPost = await db.getMyAllPublicPost(user.id);
+    return res.json({ data: myAllPublicPost });
+  }
+
+  async getMyAllPrivatePost(req, res) {
+    const { user } = req.authData;
+    const myAllPrivatePost = await db.getMyAllPrivatePost(user.id);
+    return res.json({ data: myAllPrivatePost });
+  }
+
+  async getMyPost(req, res) {
+    const { user } = req.authData;
+    const { postId } = req.params;
+    const myPost = await db.getMyPost(postId, user.id);
+    return res.json({ data: myPost });
   }
 
   async editPost(req, res) {

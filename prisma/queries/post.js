@@ -1,11 +1,12 @@
 import { prisma } from "../lib/prisma.js";
 
 class Post {
-  async addPost(title, content, userId) {
+  async addPost(title, content, isPublish, userId) {
     return await prisma.post.create({
       data: {
         title: title,
         content: content,
+        isPublish: isPublish,
         userId: userId,
       },
     });
@@ -17,6 +18,23 @@ class Post {
     return await prisma.post.findMany({ where: { userId: userId } });
   }
 
+  async getMyAllPublicPost(userId) {
+    return await prisma.post.findMany({
+      where: { userId: userId, isPublish: true },
+    });
+  }
+
+  async getMyAllPrivatePost(userId) {
+    return await prisma.post.findMany({
+      where: { userId: userId, isPublish: false },
+    });
+  }
+
+  async getMyPost(postId, userId) {
+    return await prisma.post.findUnique({
+      where: { id: Number(postId), userId: userId },
+    });
+  }
   async editPost(title, content, postId, userId) {
     return await prisma.post.update({
       where: {
