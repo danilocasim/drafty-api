@@ -25,7 +25,7 @@ model Post {
   User      User?     @relation(fields: [userId], references: [id])
   userId    Int?
   comments  Comment[]
-  isPublish Boolean   @default(true)
+  isPublish Boolean   @default(false)
 }
 
 model Comment {
