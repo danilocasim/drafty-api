@@ -3,7 +3,7 @@ import db from "../prisma/queries/post.js";
 class Post {
   async addPost(req, res) {
     const { user } = req.authData;
-    const { title, content, isPublish } = req.body;
+    const { title, content, isPublish  } = req.body;
     const newPost = await db.addPost(title, content, isPublish, user.id);
     return res.json({ data: newPost });
   }
@@ -39,9 +39,9 @@ class Post {
 
   async editPost(req, res) {
     const { user } = req.authData;
-    const { title, content } = req.body;
+    const { title, content, isPublish } = req.body;
     const { postId } = req.params;
-    const post = await db.editPost(title, content, postId, user.id);
+    const post = await db.editPost(title, content, postId, isPublish, user.id);
     return res.json({ data: post });
   }
 

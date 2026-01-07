@@ -35,7 +35,7 @@ class Post {
       where: { id: Number(postId), userId: userId },
     });
   }
-  async editPost(title, content, postId, userId) {
+  async editPost(title, content, postId, isPublish, userId) {
     return await prisma.post.update({
       where: {
         userId: userId,
@@ -44,6 +44,7 @@ class Post {
       data: {
         title: title,
         content: content,
+        isPublish: isPublish,
       },
     });
   }
@@ -90,6 +91,13 @@ class Post {
     return await prisma.comment.findMany({
       where: {
         postId: Number(postId),
+      },
+      include: {
+        User: {
+          select: {
+            username: true,
+          },
+        },
       },
     });
   }
