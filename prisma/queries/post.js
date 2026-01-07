@@ -1,11 +1,12 @@
 import { prisma } from "../lib/prisma.js";
 
 class Post {
-  async addPost(title, content, isPublish, userId) {
+  async addPost(title, description, content, isPublish, userId) {
     return await prisma.post.create({
       data: {
         title: title,
         content: content,
+        description: description,
         isPublish: isPublish,
         userId: userId,
       },
@@ -35,7 +36,7 @@ class Post {
       where: { id: Number(postId), userId: userId },
     });
   }
-  async editPost(title, content, postId, isPublish, userId) {
+  async editPost(title, description, content, postId, isPublish, userId) {
     return await prisma.post.update({
       where: {
         userId: userId,
@@ -44,6 +45,7 @@ class Post {
       data: {
         title: title,
         content: content,
+        description: description,
         isPublish: isPublish,
       },
     });
