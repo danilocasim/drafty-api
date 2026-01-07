@@ -103,9 +103,8 @@ class Post {
   }
 
   async deleteComment(req, res) {
-    const { user } = req.authData;
     const { commentId, postId } = req.params;
-    const deletedComment = await db.deleteComment(commentId, postId, user.id);
+    const deletedComment = await db.deleteComment(commentId, postId);
 
     return res.json({ data: deletedComment });
   }

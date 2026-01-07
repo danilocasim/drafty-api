@@ -117,11 +117,10 @@ class Post {
     });
   }
 
-  async deleteComment(commentId, postId, userId) {
+  async deleteComment(commentId, postId) {
     return await prisma.comment.delete({
       where: {
         postId: Number(postId),
-        userId: Number(userId),
         id: Number(commentId),
       },
     });
