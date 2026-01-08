@@ -91,6 +91,7 @@ class Post {
 
   async getAllComment(postId) {
     return await prisma.comment.findMany({
+      orderBy: [{ id: "asc" }],
       where: {
         postId: Number(postId),
       },

@@ -6,7 +6,6 @@ import authenticate from "../middleware/authentication.js";
 
 const userRouter = Router();
 
-userRouter.get("/", (req, res) => res.json({ message: "Hello World" }));
 userRouter.get("/auth", verifyToken, authenticate, (req, res) => {
   const { user } = req.authData;
   res
