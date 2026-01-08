@@ -3,13 +3,14 @@ import db from "../prisma/queries/post.js";
 class Post {
   async addPost(req, res) {
     const { user } = req.authData;
-    const { title, description, content, isPublish } = req.body;
+    const { title, description, content, isPublish, categoryName } = req.body;
     const newPost = await db.addPost(
       title,
       description,
       content,
       isPublish,
-      user.id
+      user.id,
+      categoryName
     );
     return res.json({ data: newPost });
   }

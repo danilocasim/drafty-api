@@ -1,15 +1,38 @@
 import { prisma } from "../lib/prisma.js";
 
 class Post {
-  async addPost(title, description, content, isPublish, userId) {
+  async addPost(
+    title,
+    description,
+    content,
+    isPublish,
+    userId,
+    categoryName = "Personal"
+  ) {
     return await prisma.post.create({
       data: {
         title: title,
         content: content,
         description: description,
         isPublish: isPublish,
-        userId: userId,
+        User: {
+          connect: {
+            id: userId,
+          },
+        },
+        category: {
+          connectOrCreate: {
+            where: {
+              name: categoryName,
+            },
+            create: {
+              name: categoryName,
+              userId: userId,
+            },
+          },
+        },
       },
+      include: { category: true },
     });
   }
   async getAllPost() {
@@ -52,12 +75,31 @@ class Post {
   }
 
   async deletePost(postId, userId) {
-    return await prisma.post.delete({
+    const deletedPost = await prisma.post.delete({
       where: {
         userId: userId,
         id: Number(postId),
       },
     });
+
+    const category = await prisma.category.findUnique({
+      where: {
+        id: deletedPost.categoryId,
+      },
+      include: {
+        posts: true,
+      },
+    });
+
+    if (category.posts.length === 0) {
+      await prisma.category.delete({
+        where: {
+          id: category.id,
+        },
+      });
+    }
+
+    return deletedPost;
   }
 
   async togglePublishPost(postId, userId) {
