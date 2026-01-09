@@ -22,6 +22,13 @@ postRouter.get(
   postController.getMyAllPrivatePost
 );
 
+postRouter.get(
+  "/category/:categoryId",
+  verifyToken,
+  authenticate,
+  postController.getMyPostsByCategoryId
+);
+
 postRouter.get("/:postId", verifyToken, authenticate, postController.getMyPost);
 
 postRouter.put(

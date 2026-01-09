@@ -45,21 +45,33 @@ class Post {
   async getMyAllPublicPost(userId) {
     return await prisma.post.findMany({
       where: { userId: userId, isPublish: true },
+      include: { category: true },
     });
   }
 
   async getMyAllPrivatePost(userId) {
     return await prisma.post.findMany({
       where: { userId: userId, isPublish: false },
+      include: { category: true },
     });
   }
 
   async getMyPost(postId, userId) {
     return await prisma.post.findUnique({
       where: { id: Number(postId), userId: userId },
+      include: { category: true },
     });
   }
-  async editPost(title, description, content, postId, isPublish, userId) {
+
+  async editPost(
+    title,
+    description,
+    content,
+    postId,
+    isPublish,
+    userId,
+    categoryName
+  ) {
     return await prisma.post.update({
       where: {
         userId: userId,
@@ -70,6 +82,11 @@ class Post {
         content: content,
         description: description,
         isPublish: isPublish,
+        category: {
+          connect: {
+            name: categoryName,
+          },
+        },
       },
     });
   }
