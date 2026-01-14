@@ -7,7 +7,9 @@ import authorize from "../middleware/authorization.js";
 const postRouter = Router();
 
 postRouter.post("/", verifyToken, authenticate, postController.addPost);
-postRouter.get("/", postController.getAllPost);
+postRouter.get("/", postController.getAllPublicPost);
+
+postRouter.post("/search", postController.getAllPostByTitle);
 
 postRouter.get(
   "/public",
@@ -30,6 +32,8 @@ postRouter.get(
 );
 
 postRouter.get("/:postId", verifyToken, authenticate, postController.getMyPost);
+
+postRouter.get("/public/:postId", postController.getMyPublicPost);
 
 postRouter.put(
   "/:postId",

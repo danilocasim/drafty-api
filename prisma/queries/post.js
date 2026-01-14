@@ -38,8 +38,30 @@ class Post {
   async getAllPost() {
     return await prisma.post.findMany();
   }
+
+  async getAllPostByTitle(title) {
+    if (!title) return [];
+    return await prisma.post.findMany({
+      where: {
+        isPublish: true,
+        title: {
+          contains: title,
+          mode: "insensitive", // Default value: default
+        },
+      },
+      include: { category: true },
+    });
+  }
+
   async getMyAllPost(userId) {
     return await prisma.post.findMany({ where: { userId: userId } });
+  }
+
+  async getAllPublicPost() {
+    return await prisma.post.findMany({
+      where: { isPublish: true },
+      include: { category: true },
+    });
   }
 
   async getMyAllPublicPost(userId) {
@@ -60,6 +82,22 @@ class Post {
     return await prisma.post.findUnique({
       where: { id: Number(postId), userId: userId },
       include: { category: true },
+    });
+  }
+
+  async getMyPublicPost(postId) {
+    return await prisma.post.findUnique({
+      where: {
+        id: Number(postId),
+      },
+      include: {
+        category: true,
+        User: {
+          select: {
+            username: true,
+          },
+        },
+      },
     });
   }
 

@@ -19,10 +19,22 @@ class Post {
     const allPost = await db.getAllPost();
     return res.json({ data: allPost });
   }
+
+  async getAllPostByTitle(req, res) {
+    const { title } = req.body;
+    const allPost = await db.getAllPostByTitle(title);
+    return res.json({ data: allPost });
+  }
+
   async getMyAllPost(req, res) {
     const { user } = req.authData;
     const myAllPost = await db.getMyAllPost(user.id);
     return res.json({ data: myAllPost });
+  }
+
+  async getAllPublicPost(req, res) {
+    const allPublicPost = await db.getAllPublicPost();
+    return res.json({ data: allPublicPost });
   }
 
   async getMyAllPublicPost(req, res) {
@@ -44,6 +56,12 @@ class Post {
     const { postId } = req.params;
     const myPost = await db.getMyPost(postId, user.id);
     return res.json({ data: myPost });
+  }
+
+  async getMyPublicPost(req, res) {
+    const { postId } = req.params;
+    const myPublicPost = await db.getMyPublicPost(postId);
+    return res.json({ data: myPublicPost });
   }
 
   async getMyPostsByCategoryId(req, res) {
