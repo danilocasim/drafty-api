@@ -1,92 +1,92 @@
-import { Router } from "express";
-import postController from "../controllers/post.js";
-import authenticate from "../middleware/authentication.js";
-import verifyToken from "../middleware/verifyToken.js";
-import authorize from "../middleware/authorization.js";
+import { Router } from 'express';
+import postController from '../controllers/post.js';
+import authenticate from '../middleware/authentication.js';
+import verifyToken from '../middleware/verifyToken.js';
+import authorize from '../middleware/authorization.js';
 
 const postRouter = Router();
 
-postRouter.post("/", verifyToken, authenticate, postController.addPost);
-postRouter.get("/", postController.getAllPublicPost);
+postRouter.post('/', verifyToken, authenticate, postController.addPost);
+postRouter.get('/', postController.getAllPublicPost);
 
-postRouter.post("/search", postController.getAllPostByTitle);
-
-postRouter.get(
-  "/public",
-  verifyToken,
-  authenticate,
-  postController.getMyAllPublicPost
-);
-postRouter.get(
-  "/private",
-  verifyToken,
-  authenticate,
-  postController.getMyAllPrivatePost
-);
+postRouter.post('/search', postController.getAllPostByTitle);
 
 postRouter.get(
-  "/category/:categoryId",
+  '/public',
   verifyToken,
   authenticate,
-  postController.getMyPostsByCategoryId
+  postController.getMyAllPublicPost,
+);
+postRouter.get(
+  '/private',
+  verifyToken,
+  authenticate,
+  postController.getMyAllPrivatePost,
 );
 
-postRouter.get("/:postId", verifyToken, authenticate, postController.getMyPost);
+postRouter.get(
+  '/category/:categoryId',
+  verifyToken,
+  authenticate,
+  postController.getMyPostsByCategoryId,
+);
 
-postRouter.get("/public/:postId", postController.getMyPublicPost);
+postRouter.get('/:postId', postController.getMyPost);
+
+postRouter.get('/public/:postId', postController.getMyPublicPost);
 
 postRouter.put(
-  "/:postId",
+  '/:postId',
   verifyToken,
   authenticate,
   authorize.post,
-  postController.editPost
+  postController.editPost,
 );
 
 postRouter.delete(
-  "/:postId",
+  '/:postId',
   verifyToken,
   authenticate,
   authorize.post,
-  postController.deletePost
+  postController.deletePost,
 );
 
 postRouter.put(
-  "/:postId/publish",
+  '/:postId/publish',
   verifyToken,
   authenticate,
   authorize.post,
-  postController.togglePublishPost
+  postController.togglePublishPost,
 );
 
 postRouter.post(
-  "/:postId/comment",
+  '/:postId/comment',
   verifyToken,
   authenticate,
-  postController.addComment
+  postController.addComment,
 );
 
 postRouter.get(
-  "/:postId/comment",
+  '/:postId/comment',
   verifyToken,
   authenticate,
-  postController.getPostComments
+  postController.getPostComments,
 );
 
 postRouter.put(
-  "/:postId/comment/:commentId",
+  '/:postId/comment/:commentId',
   verifyToken,
   authenticate,
   authorize.comment,
-  postController.editComment
+  postController.editComment,
 );
 
 postRouter.delete(
-  "/:postId/comment/:commentId",
+  '/:postId/comment/:commentId',
   verifyToken,
   authenticate,
   authorize.comment,
-  postController.deleteComment
+  postController.deleteComment,
 );
 
 export default postRouter;

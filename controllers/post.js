@@ -1,4 +1,4 @@
-import db from "../prisma/queries/post.js";
+import db from '../prisma/queries/post.js';
 
 class Post {
   async addPost(req, res) {
@@ -10,7 +10,7 @@ class Post {
       content,
       isPublish,
       user.id,
-      categoryName
+      categoryName,
     );
     return res.json({ data: newPost });
   }
@@ -52,9 +52,8 @@ class Post {
   }
 
   async getMyPost(req, res) {
-    const { user } = req.authData;
     const { postId } = req.params;
-    const myPost = await db.getMyPost(postId, user.id);
+    const myPost = await db.getMyPost(postId);
     return res.json({ data: myPost });
   }
 
@@ -81,7 +80,7 @@ class Post {
       postId,
       isPublish,
       user.id,
-      categoryName
+      categoryName,
     );
     return res.json({ data: post });
   }
@@ -124,7 +123,7 @@ class Post {
       content,
       postId,
       commentId,
-      user.id
+      user.id,
     );
 
     return res.json({ data: editedComment });

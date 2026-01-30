@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma.js";
+import { prisma } from '../lib/prisma.js';
 
 class Post {
   async addPost(
@@ -7,7 +7,7 @@ class Post {
     content,
     isPublish,
     userId,
-    categoryName = "Personal"
+    categoryName = 'Personal',
   ) {
     return await prisma.post.create({
       data: {
@@ -46,7 +46,7 @@ class Post {
         isPublish: true,
         title: {
           contains: title,
-          mode: "insensitive", // Default value: default
+          mode: 'insensitive', // Default value: default
         },
       },
       include: { category: true },
@@ -78,9 +78,9 @@ class Post {
     });
   }
 
-  async getMyPost(postId, userId) {
+  async getMyPost(postId) {
     return await prisma.post.findUnique({
-      where: { id: Number(postId), userId: userId },
+      where: { id: Number(postId) },
       include: { category: true },
     });
   }
@@ -108,7 +108,7 @@ class Post {
     postId,
     isPublish,
     userId,
-    categoryName
+    categoryName,
   ) {
     return await prisma.post.update({
       where: {
@@ -188,7 +188,7 @@ class Post {
 
   async getAllComment(postId) {
     return await prisma.comment.findMany({
-      orderBy: [{ id: "asc" }],
+      orderBy: [{ id: 'asc' }],
       where: {
         postId: Number(postId),
       },
