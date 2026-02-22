@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "dev": "node --env-file=.env --watch app.js",
+    "dev": "node --watch app.js",
     "deploy": "npm install && npx prisma generate"
   },
   "repository": {
