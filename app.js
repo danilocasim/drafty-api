@@ -12,7 +12,7 @@ app.use('/blog/v1/', routes.user);
 app.use('/blog/v1/post', routes.post);
 app.use('/blog/v1/category', routes.category);
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, (err) => {
   if (err) throw err;
   else console.log(`The server is running at http://localhost:${PORT}`);
