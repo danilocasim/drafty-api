@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "dev": "node --watch app.js",
     "deploy": "npm install && npx prisma generate"
   },
@@ -21,15 +21,17 @@
   "homepage": "https://github.com/danilocasim/drafty-api#readme",
   "devDependencies": {
     "@types/node": "^25.0.3",
-    "dotenv": "^17.2.3",
-    "prisma": "^7.2.0",
+    "dotenv": "^17.3.1",
+    "prisma": "^7.4.1",
+    "supertest": "^7.2.2",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   },
   "type": "module",
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
-    "@prisma/client": "^7.2.0",
+    "@prisma/client": "^7.4.1",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "express": "^5.2.1",
