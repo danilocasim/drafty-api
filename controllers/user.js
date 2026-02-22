@@ -1,7 +1,6 @@
-import db from "../prisma/queries/user.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import "dotenv/config";
+import db from '../prisma/queries/user.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 class User {
   async addUser(req, res) {
@@ -16,20 +15,20 @@ class User {
 
     if (!user) {
       return res.status(403).json({
-        message: "User does not exist",
+        message: 'User does not exist',
       });
     }
     if (await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "1hr" });
+      const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: '1hr' });
       return res.status(200).json({
-        message: "Auth Passed",
+        message: 'Auth Passed',
         token,
         user,
       });
     }
     return res
       .status(401)
-      .json({ error: { code: 401, message: "Wrong Credentials" } });
+      .json({ error: { code: 401, message: 'Wrong Credentials' } });
   }
 }
 
