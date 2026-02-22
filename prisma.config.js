@@ -1,7 +1,4 @@
 import { defineConfig } from 'prisma/config';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const connectionString =
   process.env.NODE_ENV === 'test'
