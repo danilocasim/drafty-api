@@ -1,7 +1,7 @@
 import user from '../../routes/user.js';
 import request from 'supertest';
 import express from 'express';
-import { describe, it, beforeAll, expect, beforeAll } from 'vitest';
+import { describe, it, beforeAll, expect } from 'vitest';
 import { prisma as db } from '../../prisma/lib/test_prisma.js';
 
 const app = express();
