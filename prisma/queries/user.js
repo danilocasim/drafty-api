@@ -1,9 +1,10 @@
 import { prisma } from "../lib/prisma.js";
 import bcrypt from "bcryptjs";
+import { env } from "../../config/env.js";
 
 class User {
   async addUser({ email, password, role, username }) {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, env.bcryptSaltRounds);
 
     return await prisma.user.create({
       data: {

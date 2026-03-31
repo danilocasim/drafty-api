@@ -6,6 +6,7 @@
   "scripts": {
     "test": "vitest",
     "dev": "node --watch app.js",
+    "start": "node app.js",
     "deploy": "npm install && npx prisma generate"
   },
   "repository": {

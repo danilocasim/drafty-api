@@ -6,8 +6,8 @@ function getConnectionString(): string {
     process.env.NODE_ENV === 'test'
       ? process.env.TEST_DATABASE_URL
       : process.env.NODE_ENV === 'production'
-        ? process.env.PRODUCTION_DATABASE_URL
-        : process.env.DATABASE_URL;
+        ? (process.env.PRODUCTION_DATABASE_URL ?? process.env.DATABASE_URL)
+        : (process.env.DATABASE_URL ?? process.env.PRODUCTION_DATABASE_URL);
 
   if (!url) {
     throw new Error(
